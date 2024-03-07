@@ -1,1 +1,0 @@
-angular.module('cgpaCalculator', ['ui.bootstrap']);
