@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA/GPA Calculator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Updated box-shadow for a floating effect */
+            padding: 20px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            width: 1400px;
+            animation: floatIn 1s ease-in-out alternate infinite; /* Added animation for floating effect */
+        }
+
+        .title { 
+    border-bottom: 2px solid #007bff; /* Maintains the border */
+    padding: 20px; /* Maintains the padding */
+    margin-bottom: 30px; /* Maintains the margin */
+    font-size: 36px; /* Maintains the font size */
+    font-weight: bold; /* Maintains the font weight */
+    color: #007bff; /* Maintains the text color */
+    text-align: center; /* Maintains the text alignment */
+    text-transform: uppercase; /* Maintains the text transformation */
+    margin-left: 10px; /* Maintains the margin left */
+
+  /* Animation improvements */
+    animation: pulse 1.5s infinite alternate ease-in-out; /* Added smooth easing effect */
+    text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.3), /* Maintains original shadow */
+    0 0 10px rgba(0, 153, 255, 0.8); /* Added inner blue shadow for depth */
+    }
+
+        .btn {
+            border-radius: 2px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative; /* Added position relative for spark animation */
+        }
+
+        .btn.default {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+
+        .btn.default:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+            animation: spark 1s ease; /* Added spark animation on hover */
+        }
+
+        .btn.primary {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #fff;
+        }
+
+        .btn.primary:hover {
+            background-color: #218838;
+            border-color: #218838;
+            animation: spark 0.5s ease; /* Added spark animation on hover */
+        }
+
+        .reset-icon {
+            animation: rotate 0.5s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatIn {
+            from {
+                transform: translateY(-5px);
+            }
+            to {
+                transform: translateY(5px);
+            }
+        }
+
+        @keyframes spark {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .title-container {
+  display: flex;
+  align-items: center;
+}
+
+.title-container img {
+    margin-top: 10px;
+    margin-left: 630px;
+  width: 100px; /* Adjust width as needed */
+  height: 100px; /* Adjust height as needed */
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+}
+
+.title-container img {
+    margin-top: 10px;
+    margin-left: 630px;
+  width: 100px; /* Adjust width as needed */
+  height: 100px; /* Adjust height as needed */
+}
+
+.title-containerr {
+  display: flex;
+  align-items: center;
+}
+
+.title-containerr img {
+    margin-top: 10px;
+    margin-left: 435px;
+  width: 500px; /* Adjust width as needed */
+  height: 100px; /* Adjust height as needed */
+}
+        /* Add more custom styles as needed */
+        footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 1rem;
+    color: #aaa;
+}
+
+.developer {
+    font-weight: bold;
+    color: #333;
+}
+    </style>
+</head>
+<body ng-app="cgpaCalculator">
+<div class="container" ng-controller="cgpaCtrl">
+    <form name="cgpaForm">
+        <div class="title-containerr">
+            <img src="2.jpeg" alt="Image description">
+          </div>
+            <button class="btn default pull-right" ng-click="reset()" title="Click to reset form!">
+                <i class="fa fa-refresh reset-icon" aria-hidden="true"></i> Reset
+            </button>
+        </h3>
+        
+        <h2 style="margin-left: 500px;"><b>GPA/CGPA CALCULATOR</b></h2>
+    
+                    <div class="row">
+                        <br>
+                        
+                        <div class="form-row top">
+                            <div class="col-lg-6 col-xs-6">
+                                <label for="cgpa">CURRENT CGPA</label>
+                                <input id="cgpa" type="number" class="form-control" ng-model="data.cgpa" placeholder="E.g. 3.26">
+                            </div>
+                            <div class="col-lg-6 col-xs-6">
+                                <label for="cgpa">CREDIT HOURS EARNED</label>
+                                <input id="creditsCompleted" type="number" class="form-control" ng-model="data.creditsCompleted" placeholder="E.g. 45">
+                            </div>
+                        </div>
+                    </div>
+<br>
+<br>
+                    <fieldset>
+
+                        <div class="row">
+                            <div class="form-row title-bar" >
+                                <div class="col-lg-5 col-md-3 col-sm-4 col-xs-4">
+                                    <p><b>COURSE</b></p>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <p><b>CREDIT HOURS</b></p>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <p><b>GRADE</b></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-repeat="number in data.rows track by $index">
+                            <div class="form-row input-row">
+
+                                <div class="col-lg-5 col-md-3 col-sm-4 col-xs-4">
+                                    <input type="text" class="form-control" ng-model="data.rows[$index].course" placeholder="E.g. COURSE NAME">
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <select class="form-control" ng-model="data.rows[$index].hour" ng-options="hour for hour in creditHours track by hour">
+                                        <option value="" disabled selected>--</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <select class="form-control" ng-model="data.rows[$index].grade" ng-options="grade for grade in grades track by grade">
+                                        <option value="" disabled selected>--</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-1 pull-right btn-cont">
+                                    <a class="btn primary" ng-click="data.rows.splice($index, 1)" ng-show="data.rows.length > rowsInfo.min" title="Click to delete row!">
+                                        <i class="fa fa-trash-o" ></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-row">
+                                <div class="col-lg-1 btn-cont pull-right">
+                                    <a class="btn default" ng-click="data.rows.push(null)" ng-show="data.rows.length < rowsInfo.max" title="Click to add row!">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+<br>
+
+                    <div class="bottom-content">
+
+                        <div class="row">
+                            <div class="form-row title-bar col-bar">
+                                <div class="col-lg-4 col col-xs-4 text-center">
+                                    <p class="uppercase"><b>TOTAL CREDITS</b></p>
+                                    <div class="content-value">
+                                        <span>{{ result.totalCredits }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col col-xs-4 text-center">
+                                    <p class="uppercase"><b>GPA</b></p>
+                                    <div class="content-value">
+                                        <span>{{ result.gpa !== 'N' ? result.gpa : 0 }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col col-xs-4 text-center">
+                                    <p class="uppercase"><b>CGPA</b></p>
+                                    <div class="content-value">
+                                        <span>{{ result.cgpaCalculated || 0 }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<br>
+                        <div class="row">
+                            <div class="form-row title-bar col-bar score-bar">
+                                <div class="col-lg-12 col-lg-offset-0">
+                                   
+                                    
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped active {{ result.gpaProgressBar }}" role="progressbar" aria-valuenow="{{ result.gpaProgressBarWidth }}" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: (result.gpaProgressBarWidth + '%')}">
+                                            <span class="sr-only">{{ result.gpaStanding }}</span>
+                                        </div>
+                                        
+                                    </div>
+                                    <p class="pull-right progress-value uppercase">{{ result.gpaStanding }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+<br>
+
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-row">
+                                <div class="col-lg-6 col-xs-6">
+                                    <label for="cgpaExpected">CURRENT SEMESTER CREDIT HOURS</label>
+                                    <input  id="cgpaExpected" type="number" class="form-control" ng-model="data.currentCredits" placeholder="E.g. 15">
+                                </div>
+                                <div  class="col-lg-6 col-xs-6">
+                                    <label for="currentCredits">TARGETED CGPA</label>
+                                    <input id="currentCredits" type="number" class="form-control" ng-model="data.cgpaExpected" placeholder="E.g. 3.26">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="bottom-content">
+                        <div class="row">
+                            <div class="form-row title-bar">
+                                <div class="col-lg-12 text-right gpa-expected">
+                                    <div class="content-value">
+                                        <br>
+                                        <p>
+                                            YOU SHOULD GET A GPA 
+                                            <span>{{ result.gpaExpected || 0 }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <br>
+               <center>
+                <div class="title-container">
+                    <img src="1.jpg" alt="Image description">
+                  </div>
+                  <h4><B>SUPPORT US THROUGH EASY-PAISA</B></h4>
+                </center>
+            </div>
+        </div>
+    </body>
+    <footer>
+        <p>This website is developed by <span class="developer">Burger Bachay</span></p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.4/ui-bootstrap.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers/cgpaCtrl.js"></script>
+    <script src="app/services/cgpaFactory.js"></script>
+
+</html>
